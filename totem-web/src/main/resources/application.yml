@@ -1,0 +1,16 @@
+server:
+  port: 8091
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      #suffix:
+
+dubbo:
+  scan:
+    basePackages: com.xiaoniu
+  application:
+    name: consumer-web-com.xiaoniu
+  registry:
+    address: zookeeper://192.168.192.129:2181?backup=192.168.192.129:2182,192.168.192.129:2183

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.mapper.EqDataMapper">
+
+    <!-- 一次性插入多条数据 -->
+    <insert id="insertDataList" parameterType="java.util.List">
+        insert into eq_data 
+          values 
+          <foreach collection="list" separator="," item="data">
+              (null, #{data.magnitude}, #{data.occurTime}, #{data.longitude},
+               #{data.latitude}, #{data.depth}, #{data.location}, now())
+          </foreach>
+    </insert>
+</mapper>
