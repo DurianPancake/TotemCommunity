@@ -22,4 +22,7 @@ public interface BasicConst {
 
     /** 请求登录的路径(未确定) */
     String LOGIN_URL = "/user/login.html";
+
+    /** 权限缓存的键 */
+    String AUTH_PAGE_KEY = "AUTH_PAGE_KEY";
 }

@@ -9,17 +9,26 @@ import com.xiaoniu.pojo.User;
  * 校验参数的工具类
  */
 public abstract class ValidUtil {
-	
+
+	private static String idMsg = "id参数不合法：";
+
+	/** ID校验 */
+	public static void validateId(Long id) {
+		if(id == null || id < 1) {
+			throw new ValidationException(idMsg);
+		}
+	}
+
 	/** ID校验 */
 	public static void validateId(Integer id) {
-		validatePosInteger(id, "id参数不合法："+id);
+		validatePosInteger(id, idMsg +id);
 	}
-	
+
 	/** 索引页码校验 */
 	public static void validatePageIndex(Integer pageIndex) {
 		validatePosInteger(pageIndex, "索引页码不合法:"+pageIndex);
 	}
-	
+
 	/** 正整数范围校验 */
 	private static void validatePosInteger(Integer num, String msg) {
 		if(num == null || num < 1) {
