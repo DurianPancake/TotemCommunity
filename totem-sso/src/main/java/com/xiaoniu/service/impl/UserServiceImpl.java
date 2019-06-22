@@ -38,7 +38,8 @@ public class UserServiceImpl implements UserService {
 	 * @param user
 	 */
 	@Override
-	public void saveUser(User user) {
+	public void
+	saveUser(User user) {
 		// TODO:待补充默认数据
 		userMapper.insert(user);
 	}

@@ -38,7 +38,12 @@ public class DubboUserServiceImpl implements DubboUserService {
         // 1.将密码加密
         String md5Pass = DigestUtils.md5DigestAsHex((user.getPassword()+user.getAccount()).getBytes());
         // 2.补齐入库数据
-        //userMapper.insert(user);
+        user.setDelFlag(false)
+                .setPassword(md5Pass)
+                .setRoleAuth(0)
+                .setRoleName("用户")
+                .setStatus(true);
+        userMapper.insert(user);
     }
 
     /**

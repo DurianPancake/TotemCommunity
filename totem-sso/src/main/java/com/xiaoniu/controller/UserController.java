@@ -1,6 +1,7 @@
 package com.xiaoniu.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.xiaoniu.Exception.JSONPException;
 import com.xiaoniu.constant.enums.CheckType;
 import com.xiaoniu.converter.CheckTypeConverter;
 import com.xiaoniu.pojo.User;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("user")
@@ -38,12 +41,11 @@ public class UserController {
 
 		JSONPObject object = null;
 		CheckType checkType = getCheckType(type);
+		boolean flag = userService.checkUser(param, checkType);
 		try {
-			boolean flag = userService.checkUser(param, checkType);
 			object = new JSONPObject(callback, SysResult.success(flag));
 		} catch (Exception e) {
-			e.printStackTrace();
-			object = new JSONPObject(callback, SysResult.fail());
+			throw new JSONPException(callback, e);
 		}
 		return object;
 	}
@@ -56,20 +58,14 @@ public class UserController {
 
 	/**
 	 * 注册用户保存数据库
-	 * //http://sso.jt.com/user/register
 	 * @param userJSON：前台传参
 	 * @return
 	 */
 	@RequestMapping("/register")
-	public SysResult saveUser(String userJSON) {
-		try {
-			User user = ObjectMapperUtil.toObject(userJSON, User.class);
-			userService.saveUser(user);
-			return SysResult.success();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SysResult.fail();
-		}
+	public SysResult saveUser(String userJSON) throws IOException {
+		User user = ObjectMapperUtil.toObject(userJSON, User.class);
+		userService.saveUser(user);
+		return SysResult.success();
 	}
 
 	/**
@@ -80,17 +76,11 @@ public class UserController {
 	@RequestMapping("query/{ticket}")
 	public JSONPObject getLoginUser(@PathVariable String ticket, String callback) {
 		JSONPObject object = null;
-		try {
-			String json = redisService.get(ticket);
-			if (StringUtil.isEmpty(json)) {
-				System.out.println("尝试获取token:"+ ticket +" 的缓存，但失败了");
-				object = new JSONPObject(callback, SysResult.fail());
-				return object;
-			}
-			object = new JSONPObject(callback, SysResult.success(json));
-		} catch (Exception e) {
-			e.printStackTrace();
+		String json = redisService.get(ticket);
+		if (StringUtil.isEmpty(json)) {
+			throw new JSONPException(callback, "Redis获取登录用户失败");
 		}
+		object = new JSONPObject(callback, SysResult.success(json));
 		return object;
 	}
 }

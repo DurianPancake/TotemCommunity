@@ -66,6 +66,7 @@ public class UserAuthServiceImpl implements DubboAuthService {
         userAuthMapper.insert(auth);
         // 清除缓存
         redisService.del(BasicConst.AUTH_PAGE_KEY);
+        redisService.set(auth.getAuthName(), String.valueOf(auth.getAuthValue()));
     }
 
     /**
@@ -86,5 +87,6 @@ public class UserAuthServiceImpl implements DubboAuthService {
         userAuthMapper.deleteById(id);
         // 清除缓存
         redisService.del(BasicConst.AUTH_PAGE_KEY);
+        redisService.del(auth.getAuthName());
     }
 }

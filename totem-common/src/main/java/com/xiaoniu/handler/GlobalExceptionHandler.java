@@ -1,5 +1,7 @@
 package com.xiaoniu.handler;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.xiaoniu.Exception.JSONPException;
 import com.xiaoniu.Exception.ServiceException;
 import com.xiaoniu.Exception.ValidationException;
 import com.xiaoniu.util.StringUtil;
@@ -21,6 +23,8 @@ public class GlobalExceptionHandler {
 
     private Logger logger =
             LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /******************************* 抛出SysResult *********************************/
 
     /**
      * 处理参数校验异常
@@ -96,7 +100,19 @@ public class GlobalExceptionHandler {
         return handleException(e, "未知", "系统未知异常", true);
     }
 
+    /******************************* 抛出JSONPObject *********************************/
 
+    /**
+     * 处理需要返回JSONPObject类型对象的异常处理方法
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(JSONPException.class)
+    public JSONPObject doHandleJsonPException(JSONPException e) {
+        return handleJSONPObject(e, "JSONP跨域", null, true);
+    }
+
+    /******************************* 处理异常 *********************************/
     /**
      * 处理异常的通用方法
      * @param e：异常本身
@@ -106,6 +122,22 @@ public class GlobalExceptionHandler {
      * @return
      */
     private SysResult handleException(Throwable e, String eName, String message, boolean needLog) {
+        printExceptionInfo(e, eName, needLog);
+        if(StringUtil.isEmpty(message)) {
+            return SysResult.fail(e);
+        }
+        return SysResult.fail(message, e);
+    }
+
+    private JSONPObject handleJSONPObject(JSONPException e, String eName, String message, boolean needLog) {
+        printExceptionInfo(e, eName, needLog);
+        if(StringUtil.isEmpty(message)) {
+            return new JSONPObject(e.getCallback(), e.getMessage());
+        }
+        return new JSONPObject(e.getCallback(), message);
+    }
+
+    private void printExceptionInfo(Throwable e, String eName, boolean needLog) {
         logger.error(("======== 捕获"+ eName +"异常 ========="));
         if(needLog) {
             // 输出全部栈跟踪
@@ -116,9 +148,5 @@ public class GlobalExceptionHandler {
             logger.error(("异常类型："+ c.getSimpleName()));
         }
         logger.error(" ========================== ");
-        if(StringUtil.isEmpty(message)) {
-            return SysResult.fail(e);
-        }
-        return SysResult.fail(message, e);
     }
 }

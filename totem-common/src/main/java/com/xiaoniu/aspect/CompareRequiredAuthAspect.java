@@ -2,10 +2,10 @@ package com.xiaoniu.aspect;
 
 import com.xiaoniu.Exception.AuthorityException;
 import com.xiaoniu.Exception.NoSuchLoginUserException;
+import com.xiaoniu.Exception.NoSuchRoleException;
 import com.xiaoniu.annotation.RequiresAuth;
 import com.xiaoniu.pojo.User;
 import com.xiaoniu.service.RedisService;
-import com.xiaoniu.util.ObjectMapperUtil;
 import com.xiaoniu.util.StringUtil;
 import com.xiaoniu.util.UserThreadLocal;
 import org.aspectj.lang.JoinPoint;
@@ -61,10 +61,15 @@ public class CompareRequiredAuthAspect {
         if (StringUtil.isEmpty(key)) {
             Method targerMethod = getTargerMethod(joinPoint);
             logger.warn(targerMethod.getName()+"可能没有被正确的赋予权限需求，请检查！");
-            return;
+            return;// 警告但通过检验
         }
         // 转化为int权限值
-        Integer requiredAuthValue = Integer.valueOf(jedis.get(key));
+        String authJson = jedis.get(key);
+        if (StringUtil.isEmpty(authJson)) {
+            // 角色可能已被删除
+            throw new NoSuchRoleException();
+        }
+        Integer requiredAuthValue = Integer.valueOf(authJson);
         // 比较权限值
         if (requiredAuthValue != (requiredAuthValue & user.getRoleAuth())) {
             // 不满足权限时报错
