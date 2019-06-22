@@ -25,4 +25,7 @@ public interface BasicConst {
 
     /** 权限缓存的键 */
     String AUTH_PAGE_KEY = "AUTH_PAGE_KEY";
+
+    /** 后台分页条数 */
+    int SYS_PAGE_SIZE = 20;
 }

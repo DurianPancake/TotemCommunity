@@ -26,6 +26,7 @@ public class InitAppConfig implements ApplicationRunner {
     private RedisService redisService;
     @Autowired
     private UserAuthMapper userAuthMapper;
+
     private Logger logger = LoggerFactory.getLogger(InitAppConfig.class);
 
     /**

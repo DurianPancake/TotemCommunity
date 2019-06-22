@@ -10,8 +10,11 @@ package com.xiaoniu.constant.enums;
 public enum AuthEnum {
 
     NULL(""),
+    NORMAL("普通用户"),
     CRAWLER_MANAGER("爬虫管理"),
-    AUTH_MANAGER("权限管理");
+    AUTH_MANAGER("权限管理"),
+    USER_MANAGER("用户管理"),
+    SUPER_MANAGER("超级管理员");
 
     private String key;
 

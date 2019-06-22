@@ -32,3 +32,10 @@ mybatis-plus:
 logging:
   level: 
     com.xiaoniu.mapper: debug
+
+#PageHelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

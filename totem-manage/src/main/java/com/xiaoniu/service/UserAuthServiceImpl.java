@@ -27,6 +27,7 @@ public class UserAuthServiceImpl implements DubboAuthService {
     private UserAuthMapper userAuthMapper;
     @Autowired
     private RedisService redisService;
+    private String roleName = "role_name";
 
     /**
      * 查询角色权限列表
@@ -36,7 +37,10 @@ public class UserAuthServiceImpl implements DubboAuthService {
     @Cacheable(key = BasicConst.AUTH_PAGE_KEY, keyType = KeyType.EMPTY)
     @Override
     public List<UserAuth> findAuthPage() {
-        List<UserAuth> userAuths = userAuthMapper.selectList(null);
+        QueryWrapper<UserAuth> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne(roleName, AuthEnum.SUPER_MANAGER.key());
+        queryWrapper.ne(roleName, AuthEnum.NORMAL.key());
+        List<UserAuth> userAuths = userAuthMapper.selectList(queryWrapper);
         return userAuths;
     }
 
