@@ -1,6 +1,8 @@
 package com.xiaoniu.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xiaoniu.constant.BasicConst;
 import com.xiaoniu.mapper.EqDataMapper;
 import com.xiaoniu.pojo.EqData;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,15 @@ public class CrawlerServiceImpl implements DubboCrawlerService {
     public void run() throws Exception {
         int page = 1;
         List<EqData> activeList = new ArrayList<>(50);
+
+        // 取出最近的数据
+        saveLatestData();
+        String json = redisService.get(BasicConst.LASTEST_DATA);
+        EqData lastestData = null;
+        if (StringUtil.isNotEmpty(json)) {
+            lastestData = ObjectMapperUtil.toObject(json, EqData.class);
+        }
+
         /**
          * 主循环：获取数据
          */
@@ -67,18 +79,17 @@ public class CrawlerServiceImpl implements DubboCrawlerService {
                 // 获取td列表
                 Elements tds = element.select("td");
                 List<String> tdList = tds.eachText();
-                eqDataList.add(new EqData(tdList));
+                try {
+                    // 捕获解析异常，如果异常则舍弃
+                    eqDataList.add(new EqData(tdList));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    continue;
+                }
             }
 
             if (eqDataList.size() == 0) {
                 return;
-            }
-
-            // 取出最近的数据
-            String json = redisService.get(BasicConst.LASTEST_DATA);
-            EqData lastestData = null;
-            if (StringUtil.isNotEmpty(json)) {
-                lastestData = ObjectMapperUtil.toObject(json, EqData.class);
             }
 
             /** 检测对象列表 */
@@ -96,8 +107,7 @@ public class CrawlerServiceImpl implements DubboCrawlerService {
                 } else {
                     // 如果不再有新数据则后处理，然后返回
                     // 将最新的数据缓存
-                    String dataJson = ObjectMapperUtil.toJson(newLastestData);
-                    redisService.set(BasicConst.LASTEST_DATA, dataJson);
+                    saveLatestData();
                     // 入库
                     saveDataList(activeList);
                     logger.info(Thread.currentThread().getName() + "完成Crawler第"+page+"任务，共添加"
@@ -109,7 +119,19 @@ public class CrawlerServiceImpl implements DubboCrawlerService {
             activeList.clear();
             // 获取下一页数据
             page++;
-            Thread.sleep(500);
+            Thread.sleep(100);
+        }
+    }
+
+    /** 存入最新的数据 */
+    private void saveLatestData() throws JsonProcessingException {
+        redisService.del(BasicConst.LASTEST_DATA);
+        List<EqData> dataList = eqDataMapper.selectLatestOne();
+        if (dataList.size() > 0) {
+            EqData data = dataList.get(0);
+            String dataJson = ObjectMapperUtil.toJson(data);
+            redisService.set(BasicConst.LASTEST_DATA, dataJson);
+            logger.info("============== 最近数据已加载 ===============");
         }
     }
 

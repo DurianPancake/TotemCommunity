@@ -28,4 +28,16 @@ public interface BasicConst {
 
     /** 后台分页条数 */
     int SYS_PAGE_SIZE = 20;
+
+    /** 前台地震数据查询用键 */
+    String WEB_EQDATA_KEY = "WEB_EQDATA_KEY";
+
+    /** 后台查询地震数据用 */
+    String SYS_EQDATA_KEY = "SYS_EQDATA_KEY";
+
+    /** 标准时间格式 */
+    String STANDARD_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    /** 标准日期格式 */
+    String STANDARD_DATE_FORMAT = "yyyy-MM-dd";
 }

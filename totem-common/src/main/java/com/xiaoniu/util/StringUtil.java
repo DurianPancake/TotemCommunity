@@ -1,6 +1,7 @@
 package com.xiaoniu.util;
 
-import org.springframework.util.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Author: LLH

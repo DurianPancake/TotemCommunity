@@ -14,6 +14,7 @@ public enum AuthEnum {
     CRAWLER_MANAGER("爬虫管理"),
     AUTH_MANAGER("权限管理"),
     USER_MANAGER("用户管理"),
+    EQDATA_MANAGER("地震数据管理"),
     SUPER_MANAGER("超级管理员");
 
     private String key;
