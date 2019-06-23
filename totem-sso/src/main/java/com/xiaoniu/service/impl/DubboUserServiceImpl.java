@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaoniu.Exception.AuthorityException;
+import com.xiaoniu.Exception.ServiceException;
 import com.xiaoniu.constant.BasicConst;
 import com.xiaoniu.constant.enums.AuthEnum;
 import com.xiaoniu.mapper.UserAuthMapper;
@@ -47,6 +48,11 @@ public class DubboUserServiceImpl implements DubboUserService {
     public void saveUser(User user) {
         // 1.将密码加密
         String md5Pass = DigestUtils.md5DigestAsHex((user.getPassword()+user.getAccount()).getBytes());
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.eq("account", user.getAccount());
+        Integer rows = userMapper.selectCount(queryWrapper);
+        if(rows != 0)
+            throw new ServiceException();
         // 2.补齐入库数据
         user.setDelFlag(false)
                 .setPassword(md5Pass)
