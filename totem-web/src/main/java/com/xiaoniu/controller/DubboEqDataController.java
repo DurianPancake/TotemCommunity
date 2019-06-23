@@ -29,8 +29,8 @@ public class DubboEqDataController {
 	 */
 	@RequestMapping("findEqDataByTime")
 	@ResponseBody
-	public List<EqData> findEqDataByTime(Integer day) {
-		List<EqData> list = eqDataService.findEqDataByTime(day);
+	public List<EqData> findEqDataByTime(Integer day,Integer number) {
+		List<EqData> list = eqDataService.findEqDataByTime(day, number);
 		return list;
 	}
 }
