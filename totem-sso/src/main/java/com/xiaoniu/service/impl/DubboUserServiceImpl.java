@@ -119,10 +119,9 @@ public class DubboUserServiceImpl implements DubboUserService {
         // 排除项
         queryWrapper.eq("del_flag", false);
         queryWrapper.ne("role_name", AuthEnum.SUPER_MANAGER.key());
-        List<User> users = userMapper.selectList(queryWrapper);
-
-        // 封装分页
         PageHelper.startPage(pageIndex, BasicConst.SYS_PAGE_SIZE);
+        List<User> users = userMapper.selectList(queryWrapper);
+        // 封装分页
         PageInfo<User> pageInfo = new PageInfo<>(users);
         return pageInfo;
     }

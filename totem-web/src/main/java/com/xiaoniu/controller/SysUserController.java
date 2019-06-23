@@ -33,8 +33,8 @@ public class SysUserController {
      * @author LLH
      */
     @RequestMapping("page/{pageIndex}")
-    public SysResult userManagePage(@PathVariable Integer pageIndex, User user) {
-        return SysResult.success(userService.findUserListByLimit(user, pageIndex));
+    public SysResult userManagePage(@PathVariable String pageIndex, User user) {
+        return SysResult.success(userService.findUserListByLimit(user, Integer.valueOf(pageIndex)));
     }
 
     /**

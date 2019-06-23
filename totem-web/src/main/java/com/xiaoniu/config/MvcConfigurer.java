@@ -26,6 +26,6 @@ public class MvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new UserInterceptor())
-                .addPathPatterns("/sys/**", "/comment/reply/**");
+                .addPathPatterns(/*"/sys/**", */"/comment/reply/**");
     }
 }

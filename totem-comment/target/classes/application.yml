@@ -7,9 +7,10 @@ spring:
     #引入druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/totem?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    #176.201.111.28 127.0.0.1
+    url: jdbc:mysql://176.201.111.28:3306/totem?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
-    password: easy
+    password: 123456
 
 dubbo:
   scan:

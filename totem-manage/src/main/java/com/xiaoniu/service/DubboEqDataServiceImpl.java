@@ -61,10 +61,10 @@ public class DubboEqDataServiceImpl implements DubboEqDataService {
 	public PageInfo<EqData> findEqData4SysByLimit(Integer pageIndex, EqDataDTO eqData) {
 		// 参数校验
 		ValidUtil.validatePageIndex(pageIndex);
+		PageHelper.startPage(pageIndex, BasicConst.SYS_PAGE_SIZE);
 		// 查询数据
 		List<EqData> dataList = getEqDataList(eqData);
 		// 封装数据页
-		PageHelper.startPage(pageIndex, BasicConst.SYS_PAGE_SIZE);
 		PageInfo<EqData> pageInfo = new PageInfo<>(dataList);
 		return pageInfo;
 	}

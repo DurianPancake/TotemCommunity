@@ -24,7 +24,6 @@ public class CommentController {
     @Reference(timeout = 3000, check = false)
     private DubboLikeDisService likeDisService;
 
-
     /**
      * 前端查询下拉数据页
      * @param pageIndex

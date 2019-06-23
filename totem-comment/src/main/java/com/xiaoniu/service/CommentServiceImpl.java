@@ -30,7 +30,7 @@ public class CommentServiceImpl implements DubboCommentService {
     /**
      * 查询后台评论列表
      * @param pageIndex
-     * @return
+  P   * @return
      */
     @Override
     public PageInfo<Comment> findSysCommentDataPage(Integer pageIndex) {
@@ -48,11 +48,11 @@ public class CommentServiceImpl implements DubboCommentService {
         // 校验
         ValidUtil.validatePageIndex(pageIndex);
         //
+        PageHelper.startPage(pageIndex, WEB_COMMENT_PAGE_SIZE);
         List<Map<String, Object>> comments = commentMapper
                 .selectWebComments(PageUtil.getPageOffset(pageIndex, WEB_COMMENT_PAGE_SIZE));
 
         // 封装数据
-        PageHelper.startPage(pageIndex, WEB_COMMENT_PAGE_SIZE);
         return new PageInfo<>(comments);
     }
 
