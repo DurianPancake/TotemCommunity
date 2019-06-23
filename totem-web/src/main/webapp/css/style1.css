@@ -103,7 +103,7 @@ letter-spacing:1.6px;
 color:#fff;
 }
 
-.mail-form-agile input[type="submit"]{
+.mail-form-agile input[type="button"]{
 font-size: 18px;
 padding: 10px 20px;
 letter-spacing:1.2px;
@@ -118,7 +118,7 @@ font-family: 'Open Sans', sans-serif;
 -webkit-transition-duration: 0.9s;
 transition-duration: 0.9s;
 }
-.mail-form-agile input[type="submit"]:hover {
+.mail-form-agile input[type="button"]:hover {
  -webkit-transition-duration: 0.9s;
  transition-duration: 0.9s;
  background:rgba(91, 157, 214, 0.76);
@@ -244,7 +244,7 @@ padding:75px 30px;
 .mail-form-agile input[type="text"], .mail-form-agile input[type="password"] {
     font-size: 14px;
 }
-.mail-form-agile input[type="submit"] {
+.mail-form-agile input[type="button"] {
     font-size: 16px;
 }
 .footer p {
@@ -272,7 +272,7 @@ padding:75px 30px;
 .design-w3l {
     width: 92%;
 }
-.mail-form-agile input[type="submit"] {
+.mail-form-agile input[type="button"] {
     font-size: 14px;
 }
 .footer p {

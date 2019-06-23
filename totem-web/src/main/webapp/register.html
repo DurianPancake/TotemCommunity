@@ -26,19 +26,54 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<div class="design-w3l">
 			<div class="mail-form-agile">
-				<form action="#" method="post">
-					<input type="text" name="name" placeholder="User Name  or  email..." required=""/>
-					<input type="password"  name="password" class="padding" placeholder="Password" required=""/>
-					<input type="password"  name="password" class="padding" placeholder="Password " required=""/>
-					<input type="submit" value="login">
-				</form>
+				<input type="text" id="account" placeholder="用户名" required=""/>
+				<input type="text" id="nickname" placeholder="用户昵称" required=""/>
+				<input type="password" id="password" class="padding" placeholder="密码" required=""/>
+				<input id="register" type="button" value="注册">
 			</div>
 		  <div class="clear"> </div>
 		</div>
 		
 		<div class="footer">
-		<p>© 2017  Master  Login form. All Rights Reserved | Design by  <a href="https://w3layouts.com/" >  w3layouts </a></p>
+		<p>© 2019  Master  Login form. All Rights Reserved | Design by  <a href="" >  w3layouts </a></p>
 		</div>
 	</div>
+	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#register").click(function(){
+				var params = {
+						account : $("#account").val(),
+						nickname : $("#nickname").val(),
+						password : $("#password").val()
+				}
+				console.log(params);
+				var url = "user/doRegister";
+				$.post(url,params,function(result) {
+					if(result.status==200){
+						alert("注册成功")
+						window.location.href='http://localhost:8091/login.html';
+					}else{
+						alert("注册失败")
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
