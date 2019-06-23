@@ -1,29 +1,22 @@
 package com.xiaoniu.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
+import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaoniu.annotation.Cacheable;
-import com.xiaoniu.annotation.RequiresAuth;
 import com.xiaoniu.constant.BasicConst;
-import com.xiaoniu.constant.enums.AuthEnum;
 import com.xiaoniu.constant.enums.KeyType;
 import com.xiaoniu.dto.EqDataDTO;
-import com.xiaoniu.util.ExcelUtil;
-import com.xiaoniu.util.ValidUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaoniu.mapper.EqDataMapper;
 import com.xiaoniu.pojo.EqData;
 import com.xiaoniu.service.dubbo.DubboEqDataService;
+import com.xiaoniu.util.ValidUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 

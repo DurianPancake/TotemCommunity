@@ -1,6 +1,8 @@
 package com.xiaoniu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xiaoniu.annotation.RequiresAuth;
+import com.xiaoniu.constant.enums.AuthEnum;
 import com.xiaoniu.pojo.UserAuth;
 import com.xiaoniu.service.dubbo.DubboAuthService;
 import com.xiaoniu.vo.SysResult;
@@ -25,6 +27,7 @@ public class UserAuthController {
      * 查询数据页
      * @return
      */
+    @RequiresAuth(AuthEnum.AUTH_MANAGER)
     @RequestMapping("page")
     public SysResult findAuthList() {
         List<UserAuth> list = authService.findAuthPage();
@@ -37,6 +40,7 @@ public class UserAuthController {
      * @param ids
      * @return
      */
+    @RequiresAuth(AuthEnum.AUTH_MANAGER)
     @RequestMapping("createNewRole")
     public SysResult createNewRole(UserAuth auth, Long... ids) {
         authService.insertNewRoleByIds(auth, ids);
@@ -46,6 +50,7 @@ public class UserAuthController {
     /**
      * 删除角色、基础权限不可删除
      */
+    @RequiresAuth(AuthEnum.AUTH_MANAGER)
     @RequestMapping("delete/{id}")
     public SysResult deleteById(@PathVariable Long id) {
         authService.deleteAuthById(id);

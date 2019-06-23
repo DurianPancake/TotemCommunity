@@ -1,6 +1,8 @@
 package com.xiaoniu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xiaoniu.annotation.RequiresAuth;
+import com.xiaoniu.constant.enums.AuthEnum;
 import com.xiaoniu.pojo.User;
 import com.xiaoniu.service.RedisService;
 import com.xiaoniu.service.dubbo.DubboUserService;
@@ -39,6 +41,7 @@ public class SysUserController {
      * 禁用启用用户
      * @author LLH
      */
+    @RequiresAuth(AuthEnum.USER_MANAGER)
     @RequestMapping("ban/{userId}")
     public SysResult banUserById(@PathVariable Long userId) {
         return SysResult.success(userService.banUserById(userId));
@@ -49,6 +52,7 @@ public class SysUserController {
      * @return
      * @author LLH
      */
+    @RequiresAuth(AuthEnum.USER_MANAGER)
     @RequestMapping("appoint/{userId}/{authId}")
     public SysResult appointUserNewRole(@PathVariable Long userId, @PathVariable Long authId) {
         return SysResult.success(userService.appointUserNewRole(userId, authId));

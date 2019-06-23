@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.mapper.CommentMapper">
+
+    <select id="selectWebComments" resultType="map">
+        SELECT c.id commentId, pid, tid, comment, c.create_time,
+            (select count(*) from like_dis where operate_type = 'like' and comment_id = c.id) likes,
+            (select count(*) from comment where tid = c.id) totalReplys,
+            u.id userId, u.nickname
+            FROM `comment` c
+            left join sys_user u
+                on c.user_id = u.id
+    </select>
+	
+</mapper>

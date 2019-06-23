@@ -4,7 +4,6 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaoniu.Exception.ServiceException;
 import com.xiaoniu.annotation.Cacheable;
-import com.xiaoniu.annotation.RequiresAuth;
 import com.xiaoniu.constant.BasicConst;
 import com.xiaoniu.constant.enums.AuthEnum;
 import com.xiaoniu.constant.enums.KeyType;
@@ -50,7 +49,6 @@ public class UserAuthServiceImpl implements DubboAuthService {
      * @param auth
      * @param ids
      */
-    @RequiresAuth(AuthEnum.AUTH_MANAGER)
     @Override
     public void insertNewRoleByIds(UserAuth auth, Long[] ids) {
         // 校验参数
@@ -78,7 +76,6 @@ public class UserAuthServiceImpl implements DubboAuthService {
      * @param id
      * @author LLH
      */
-    @RequiresAuth(AuthEnum.AUTH_MANAGER)
     @Override
     public void deleteAuthById(Long id) {
         //

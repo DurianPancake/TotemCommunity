@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 public class SysEqDataController {
 
-    @Reference(timeout = 4000)
+    @Reference(timeout = 4000, check = false)
     private DubboEqDataService eqDataService;
 
     /**

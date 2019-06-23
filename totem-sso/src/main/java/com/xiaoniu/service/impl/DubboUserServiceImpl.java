@@ -2,15 +2,11 @@ package com.xiaoniu.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaoniu.Exception.AuthorityException;
-import com.xiaoniu.annotation.Cacheable;
-import com.xiaoniu.annotation.RequiresAuth;
 import com.xiaoniu.constant.BasicConst;
 import com.xiaoniu.constant.enums.AuthEnum;
-import com.xiaoniu.constant.enums.KeyType;
 import com.xiaoniu.mapper.UserAuthMapper;
 import com.xiaoniu.mapper.UserMapper;
 import com.xiaoniu.pojo.User;
@@ -136,7 +132,6 @@ public class DubboUserServiceImpl implements DubboUserService {
      * @param userId
      * @return
      */
-    @RequiresAuth(AuthEnum.USER_MANAGER)
     @Transactional
     @Override
     public int banUserById(Long userId) {
@@ -166,7 +161,6 @@ public class DubboUserServiceImpl implements DubboUserService {
      * @return
      * @author LLH
      */
-    @RequiresAuth(AuthEnum.USER_MANAGER)
     @Transactional
     @Override
     public int appointUserNewRole(Long userId, Long authId) {
