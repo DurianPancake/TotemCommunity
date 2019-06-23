@@ -6266,7 +6266,9 @@ File: scss
 
 .profiletimeline .sl-item {
   margin-top: 8px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px; 
+  
+  }
 
 .profiletimeline .sl-date {
   font-size: 12px;
@@ -7956,11 +7958,26 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
 	position:fixed;
 	right:0;
 	top:10%
-}
-
-/*#mainXXX {
-	position:fixed
-	top:100px
-	left:500px
 	
-}*/
+}
+.sl-item {
+  margin-top: 8px;
+  margin-bottom: 30px; 
+
+  }
+  #MainComment {
+	  background-color: #ffffff;
+  }
+
+.sl-date {
+  font-size: 12px;
+  color: #99abb4;
+   }
+.sl-left {
+    float: left;
+    margin-left: -60px;
+    z-index: 1;
+    margin-right: 15px; 
+    }
+
+
