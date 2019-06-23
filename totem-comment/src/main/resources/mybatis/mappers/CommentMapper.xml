@@ -12,6 +12,11 @@
             FROM `comment` c
             left join sys_user u
                 on c.user_id = u.id
+            order by c.create_time desc
     </select>
-	
+
+    <select id="selectSubCommentList" resultType="java.util.Map">
+
+    </select>
+
 </mapper>

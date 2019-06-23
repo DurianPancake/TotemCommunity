@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface DubboEqDataService {
 
-	List<EqData> findEqDataByTime(Integer day);
+	List<EqData> findEqDataByTime(Integer day, Integer number);
 
     /**
      * 后台查询地震数据页

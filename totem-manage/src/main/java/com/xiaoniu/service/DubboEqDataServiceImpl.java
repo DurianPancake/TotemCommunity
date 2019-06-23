@@ -36,9 +36,9 @@ public class DubboEqDataServiceImpl implements DubboEqDataService {
 	 * @author GFL
 	 * 	根据时间查找地震数据
 	 */
-	@Cacheable(key = BasicConst.WEB_EQDATA_KEY, seconds = 30)
+	@Cacheable(key = BasicConst.WEB_EQDATA_KEY, seconds = 30, keyType = KeyType.FULL_ARGS)
 	@Override
-	public List<EqData> findEqDataByTime(Integer day) {
+	public List<EqData> findEqDataByTime(Integer day, Integer number) {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, - day);

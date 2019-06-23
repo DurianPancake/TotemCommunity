@@ -81,4 +81,19 @@ public class CommentServiceImpl implements DubboCommentService {
         comment.setCreateTime(new Date());
         return commentMapper.insert(comment);
     }
+
+    /**
+     * 查询子列表数据
+     * @param commentId
+     * @return
+     * @author LLH
+     */
+    @Override
+    public List<Map<String, Object>> findSubCommentListById(Long commentId) {
+        // 校验
+        ValidUtil.requireNotNull(commentId);
+        //
+        List<Map<String, Object>> comments = commentMapper.selectSubCommentList(commentId);
+        return null;
+    }
 }

@@ -27,4 +27,11 @@ public interface CommentMapper extends BaseMapper<Comment> {
      */
     @Select("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'comment'")
     Long selectNextId();
+
+    /**
+     * 查询子列表的评论
+     * @param commentId
+     * @return
+     */
+    List<Map<String, Object>> selectSubCommentList(Long commentId);
 }

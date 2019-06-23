@@ -3,6 +3,7 @@ package com.xiaoniu.service.dubbo;
 import com.github.pagehelper.PageInfo;
 import com.xiaoniu.pojo.Comment;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,4 +32,11 @@ public interface DubboCommentService {
      * @return
      */
     int insertComment(Comment comment);
+
+    /**
+     * 查询子列表数据
+     * @param commentId
+     * @return
+     */
+    List<Map<String, Object>> findSubCommentListById(Long commentId);
 }
