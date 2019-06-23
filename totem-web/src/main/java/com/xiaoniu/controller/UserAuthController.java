@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("auth")
 public class UserAuthController {
 
-    @Reference(timeout = 3000)
+    @Reference(timeout = 3000,check=false)
     private DubboAuthService authService;
 
     /**
