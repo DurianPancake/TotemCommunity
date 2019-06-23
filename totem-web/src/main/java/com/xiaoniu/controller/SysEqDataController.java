@@ -53,7 +53,7 @@ public class SysEqDataController {
         title.append("$");
         appendTime(eqDataDTO.getEndTime(), title, format);
         title.append("-" + System.currentTimeMillis());
-        title.append(".xlsx");
+        title.append(".xls");
         ExcelUtil.exportExcel(dataList, "地震数据", "数据页", EqData.class, title.toString(), response);
     }
 

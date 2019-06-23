@@ -39,11 +39,16 @@ public class DubboEqDataServiceImpl implements DubboEqDataService {
 	@Cacheable(key = BasicConst.WEB_EQDATA_KEY, seconds = 30, keyType = KeyType.FULL_ARGS)
 	@Override
 	public List<EqData> findEqDataByTime(Integer day, Integer number) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, - day);
-        Date d = c.getTime();
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.DATE, - day);
+		Date d = c.getTime();
 		QueryWrapper<EqData> queryWrapper = new QueryWrapper<EqData>();
+		switch(number) {
+			case 3:queryWrapper.lt(MAGNITUDE, 6);break;
+			case 6:queryWrapper.gt(MAGNITUDE, 6).lt(MAGNITUDE, 8);break;
+			case 9:queryWrapper.gt(MAGNITUDE, 8);break;
+		}
 		queryWrapper.gt(OCCUR_TIME, d).lt(OCCUR_TIME, new Date());
 		List<EqData> list = eqDataMapper.selectList(queryWrapper);
 		return list;
